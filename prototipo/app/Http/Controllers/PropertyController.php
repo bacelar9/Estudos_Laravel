@@ -13,9 +13,9 @@ class PropertyController extends Controller
         return view('property.index')->with('properties', $properties);
     }
 
-    public function show($id)
+    public function show($name)
     {
-        $property = DB::select("SELECT * FROM properties WHERE id = ?", [$id]);
+        $property = DB::select("SELECT * FROM properties WHERE name = ?", [$name]);
 
         if (!empty($property)) {
             return view('property.show')->with('property', $property);
@@ -31,16 +31,37 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
+        $propertySlug = $this->setName($request->title);
+
         $property = [
             $request->title,
+            $propertySlug,
             $request->description,
             $request->rental_price,
             $request->sale_price
         ];
 
-        DB::insert("INSERT INTO properties (title, description, rental_price, sale_price)VALUES(
-            ?,?,?,?)", $property);
+        DB::insert("INSERT INTO properties (title, name, description, rental_price, sale_price)VALUES(
+            ?,?,?,?,?)", $property);
 
         return redirect()->action('PropertyController@index');
+    }
+
+    private function setName($title)
+    {
+        /**Não permitir duplicidade de URL */
+        $propertySlug = str_slug($title); //converter caracteres
+        $properties = DB::select("SELECT * FROM properties");
+
+        $repeated = 0;
+        foreach ($properties as $property) {
+            if (str_slug($title) === $propertySlug  ) {
+                $repeated++;
+            }
+        }
+        if ($repeated > 0) {
+            $propertySlug = $propertySlug . "-" . $repeated;
+        }
+        return $propertySlug;
     }
 }
