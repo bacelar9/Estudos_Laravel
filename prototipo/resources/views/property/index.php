@@ -17,7 +17,7 @@ if (!empty($properties)) {
 
         $linkReadMore = url('/imoveis/' . $property->name);
         $linkEditItem = url('/imoveis/editar/' . $property->name);
-        $linkRemoveItem = url('/imoveis/remover/' . $property->name);
+        $linkRemoveItem = url('/imoveis/update/' . $property->name);
 
         echo "<tr>
                 <td>{$property->title}</td>

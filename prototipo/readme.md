@@ -8,7 +8,8 @@ Activities studied as a Laravel developer:
 
 - [Property Registration].
 - [Single Listing].
-- [Adding friendly URL]
+- [Adding friendly URL].
+- [Property Edition]
 
 
 ## License

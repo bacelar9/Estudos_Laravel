@@ -32,7 +32,6 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $propertySlug = $this->setName($request->title);
-
         $property = [
             $request->title,
             $propertySlug,
@@ -47,6 +46,34 @@ class PropertyController extends Controller
         return redirect()->action('PropertyController@index');
     }
 
+    public function edit($name)
+    {
+
+        $property = DB::select("SELECT * FROM properties WHERE name = ?", [$name]);
+
+        if (!empty($property)) {
+            return view('property.edit')->with('property', $property);
+        } else {
+            return redirect()->action('PropertyController@index');
+        }
+    }
+
+    public function update(Request $request, $name)
+    {
+        $propertySlug = $this->setName($request->title);
+        $property = [
+            $request->title,
+            $propertySlug,
+            $request->description,
+            $request->rental_price,
+            $request->sale_price,
+            $name
+        ];
+
+        DB::update("UPDATE properties SET title = ?, name = ?, description = ?, rental_price = ?, sale_price = ? WHERE name = ?", $property);
+        return redirect()->action('PropertyController@index');
+    }
+
     private function setName($title)
     {
         /**Não permitir duplicidade de URL */
@@ -55,7 +82,7 @@ class PropertyController extends Controller
 
         $repeated = 0;
         foreach ($properties as $property) {
-            if (str_slug($title) === $propertySlug  ) {
+            if (str_slug($title) === $propertySlug) {
                 $repeated++;
             }
         }
