@@ -13,14 +13,25 @@ class PropertyController extends Controller
         return view('property.index')->with('properties', $properties);
     }
 
+    public function show($id)
+    {
+        $property = DB::select("SELECT * FROM properties WHERE id = ?", [$id]);
+
+        if (!empty($property)) {
+            return view('property.show')->with('property', $property);
+        } else {
+            return redirect()->action('PropertyController@index');
+        }
+    }
+
     public function create()
     {
         return view('property.create');
     }
 
-    public function store (Request $request)
+    public function store(Request $request)
     {
-        $property =[
+        $property = [
             $request->title,
             $request->description,
             $request->rental_price,
@@ -30,6 +41,6 @@ class PropertyController extends Controller
         DB::insert("INSERT INTO properties (title, description, rental_price, sale_price)VALUES(
             ?,?,?,?)", $property);
 
-            return redirect()->action('PropertyController@index');
+        return redirect()->action('PropertyController@index');
     }
 }
