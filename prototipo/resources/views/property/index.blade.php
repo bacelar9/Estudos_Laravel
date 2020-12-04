@@ -1,31 +1,36 @@
-<h1>Listagem de Imóveis</h1>
+@extends('property.master')
+@section('content')
 
-<p><a href="<?= url('/imoveis/novo'); ?>">Cadastrar Novo Imóvel</a></p>
+    <div class="container my-3">
 
-<?php
+        <h1>Listagem de Imóveis</h1>
 
-if (!empty($properties)) {
+        <?php if (!empty($properties)) {
+        echo "<table class='table table-striped table-hover'>";
+            echo "<thead class='bg-primary text-white'>
+                    <td>Titulo</td>
+                    <td>Valor de Locação</td>
+                    <td>Valor de Compra</td>
+                    <td>Ações</td>
+                </thead>";
+            foreach ($properties as $property) {
+            $linkReadMore = url('/imoveis/' . $property->name);
+            $linkEditItem = url('/imoveis/editar/' . $property->name);
+            $linkRemoveItem = url('/imoveis/remover/' . $property->name);
 
-    echo "<table>";
-    echo "<tr>
-            <td>Titulo</td>
-            <td>Valor de Locação</td>
-            <td>Valor de Compra</td>
-            <td>Ações</td>
-         </tr>";
-    foreach ($properties as $property) {
-
-        $linkReadMore = url('/imoveis/' . $property->name);
-        $linkEditItem = url('/imoveis/editar/' . $property->name);
-        $linkRemoveItem = url('/imoveis/remover/' . $property->name);
-
-        echo "<tr>
+            echo "<tr>
                 <td>{$property->title}</td>
-                <td>R$ " . number_format($property->rental_price, 2, ',', '.') . "</td>
-                <td>R$ " . number_format($property->sale_price, 2, ',', '.') . "</td>
-                <td><a href='{$linkReadMore}'>Ver Mais</a> | <a href='{$linkEditItem}'>Editar</a> | <a href='{$linkRemoveItem}'>Remover</a> </td>
-             </tr>";
-    }
-    echo "</table>";
-}
-
+                <td>R$ " .
+                    number_format($property->rental_price, 2, ',', '.') .
+                    "</td>
+                <td>R$ " .
+                    number_format($property->sale_price, 2, ',', '.') .
+                    "</td>
+                <td><a href='{$linkReadMore}'>Ver Mais</a> | <a href='{$linkEditItem}'>Editar</a> | <a
+                        href='{$linkRemoveItem}'>Remover</a> </td>
+            </tr>";
+            }
+            echo "</table>";
+        } ?>
+    </div>
+@endsection
