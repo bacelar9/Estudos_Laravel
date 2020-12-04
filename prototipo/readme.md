@@ -2,15 +2,17 @@
 
 ## About Prototype
 
-Learning to develop using the Laravel framework as a base.
+Learn to develop using the Laravel framework as a base. Creation of property registration and edition form, basic CRUD.
 
 Activities studied as a Laravel developer:
 
-- [Property Registration].
-- [Single Listing].
-- [Adding friendly URL].
-- [Property Edition].
-- [Removing Records].
+- [Property Registration];
+- [Single Listing];
+- [Adding friendly URL];
+- [Property Edition];
+- [Removing Records];
+- [Model Property creation];
+- [style application with bootstrap].
 
 
 ## License
