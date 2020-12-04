@@ -74,6 +74,16 @@ class PropertyController extends Controller
         return redirect()->action('PropertyController@index');
     }
 
+    public function destroy($name)
+    {
+        $property = DB::select("SELECT * FROM properties WHERE name = ?", [$name]);
+
+        if (!empty($property)) {
+            DB::delete("DELETE FROM properties WHERE name = ?", [$name]);
+        }
+        return redirect()->action('PropertyController@index');
+    }
+
     private function setName($title)
     {
         /**Não permitir duplicidade de URL */
@@ -86,7 +96,7 @@ class PropertyController extends Controller
                 $repeated++;
             }
         }
-        if ($repeated > 0) {
+        if ($repeated > 1) {
             $propertySlug = $propertySlug . "-" . $repeated;
         }
         return $propertySlug;

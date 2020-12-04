@@ -24,3 +24,4 @@ Route::get('/imoveis/{name}', 'PropertyController@show');
 
 Route::get('/imoveis/editar/{name}', 'PropertyController@edit');//renderiza o form com name
 Route::put('/imoveis/update/{name}', 'PropertyController@update');//atualiza bd
+Route::get('/imoveis/remover/{name}', 'PropertyController@destroy');

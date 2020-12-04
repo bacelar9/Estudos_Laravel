@@ -9,7 +9,8 @@ Activities studied as a Laravel developer:
 - [Property Registration].
 - [Single Listing].
 - [Adding friendly URL].
-- [Property Edition]
+- [Property Edition].
+- [Removing Records].
 
 
 ## License
