@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel | <b>Behavior</b>
+                    Laravel
                 </div>
 
                 <div class="links">
